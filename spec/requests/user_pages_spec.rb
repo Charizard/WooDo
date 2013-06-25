@@ -24,6 +24,12 @@ describe "User Pages" do
                 before { click_button "Create my account" }
                 it { should have_content('Created new user.') }
             end
+
+            describe "newly created users should be signed in" do
+                before { click_button "Create my account" }
+                it { should have_link('Sign out', href: signout_path) }
+                it { should_not have_link('Sign in', href: signin_path) }
+            end
         end
 
         describe "fill in form with invalid information" do

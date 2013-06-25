@@ -1,11 +1,14 @@
 WooDo::Application.routes.draw do
     resources :users, only: [:new, :create, :edit, :update, :show, :update]
+    resources :sessions, only: [:new, :create, :destroy]
 
     get "static_pages/home"
 
 
     match '/', to: "static_pages#home"
 
+    match '/signin', to: "sessions#new"
+    match '/signout', to: "sessions#destroy"
     match '/signup', to: "users#new"
   # The priority is based upon order of creation:
   # first created -> highest priority.
