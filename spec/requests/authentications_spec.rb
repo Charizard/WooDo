@@ -29,9 +29,17 @@ describe "Authentications" do
 
         it { should have_link('Sign out') }
         it { should have_link('Profile') }
-        it { should have_selector('title', text: user.name) }
         it { should_not have_link('Sign in') }
         
+        describe "should redirect root url" do
+            it { should have_selector("title", text: "Save Tasks") }
+            
+            describe "root url should not contain static page" do
+                it { should_not have_selector('h1', text: "Woo Do | Save Tasks") }
+                it { should_not have_link('Sign up') }
+            end
+        end
+
         describe "Sign out" do
             before do
                 click_link "Sign out"

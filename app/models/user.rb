@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
 
     has_secure_password
 
+    has_many :lists
+
     before_save { |user| user.email = email.downcase }
 
     validates :name, presence: true, length: { maximum: 50 }

@@ -10,5 +10,6 @@ describe "StaticPages" do
         it { should have_selector('h1', text: 'Woo Do') }
         it { should have_selector('title', text: 'Woo Do | Save Tasks') }
         it { should have_link('Sign up') }
+        it { should have_selector('div.input-command') }
     end
 end

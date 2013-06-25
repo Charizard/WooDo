@@ -45,6 +45,17 @@ describe "User Pages" do
         end
     end
 
+    describe "Home page after signin" do
+        let(:user) { FactoryGirl.create(:user) }
+        let!(:list) { FactoryGirl.create(:list, user: user, title: "List Name") }
+
+        before do
+            sign_in user
+        end
+
+        it { should have_content(list.title) }
+    end
+
     describe "Profile page" do
         let(:user) { FactoryGirl.create(:user) }
         before { visit user_path(user) }

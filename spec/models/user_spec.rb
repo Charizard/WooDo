@@ -95,4 +95,10 @@ describe User do
         before { @user.save }
         its(:remember_token) { should_not be_blank }
     end
+    describe "list associations" do
+        before { @user.save }
+
+        let(:older_list) { FactoryGirl.create(:list, user: @user, created_at: 1.day.ago) }
+        let(:newer_list) { FactoryGirl.create(:list, user: @user, created_at: 1.hour.ago) }
+    end
 end
