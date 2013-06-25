@@ -19,3 +19,15 @@ body {
 h1{
     font-family: Arial, sans-serif;
 }
+
+/*Signup Errors*/
+
+.error-explanation{
+    ul{
+        text-align: left;
+        li{
+            list-style-type: none;
+            color: #f00;
+        }
+    }
+}

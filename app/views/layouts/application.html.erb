@@ -7,15 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container">
-                <a class="brand" href="#">Woo Do</a>
-                <button href="#" type="button" class="btn btn-primary pull-right">Sign in</button> 
-            </div>
-        </div>
-    </div>
+    <%= render "layouts/header" %> 
     <div class="container center">
+        <% flash.each do |key, value| %>
+            <div class="alert alert-<%= key %>"><%= value %></div>
+        <% end %>
         <%= yield %>
     </div
 </body>
