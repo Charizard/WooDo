@@ -31,3 +31,29 @@ h1{
         }
     }
 }
+
+/*Lists*/
+.lists{
+    margin: 40px 0; 
+    list-style-type: none;
+    position: relative;
+    li{
+        width: 30%;
+        height: 300px;
+        border-radius: 7px;
+        box-shadow:inset 0px 0px 5px 5px #ccc;
+        margin: 40px 10px;
+        .list-title{
+            padding: 20px 0;
+            font-size: 30px;
+            color: #fff;
+            border-top-right-radius: 7px;
+            border-top-left-radius: 7px;
+            background-color: ;
+        }
+        .list-body{
+            min-height: 20%;
+            heigth: 20%;
+        }
+    }
+}

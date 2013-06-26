@@ -45,6 +45,7 @@ describe "User Pages" do
         end
     end
 
+
     describe "Profile page" do
         let(:user) { FactoryGirl.create(:user) }
         before { visit user_path(user) }

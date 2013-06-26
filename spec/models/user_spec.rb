@@ -11,6 +11,10 @@ describe User do
     it { should respond_to(:password_confirmation) }
     it { should respond_to(:authenticate) }
     it { should respond_to(:remember_token) }
+    it { should respond_to(:relationships) }
+    it { should respond_to(:lists) }
+    it { should respond_to(:posses!) }
+    it { should respond_to(:possessing?) }
 
     it { should be_valid }
 
@@ -94,5 +98,39 @@ describe User do
     describe "remember token" do
         before { @user.save }
         its(:remember_token) { should_not be_blank }
+    end
+    describe "associtaion with lists" do
+        let(:list) { FactoryGirl.create(:list) }
+        before do
+            @user.save
+            rel = @user.relationships.build(list_id: list.id)
+            rel.save
+        end
+
+        its(:lists) { should include(list) }
+    end
+
+    describe "possessing" do
+        let(:other_user) { FactoryGirl.create(:user, email: "yuv.slm@hotmail.com") }
+        let(:list) { FactoryGirl.create(:list) }
+
+        before do
+           @user.save
+           @user.posses!(list)
+        end
+
+        it { should be_possessing(list) }
+        its(:lists) { should include(list) }
+
+        describe "list possessed by a user" do
+            subject { list }
+            its(:users) { should include(@user) }
+        end
+
+        describe "un possessing" do
+            before { @user.unpossess!(list) }
+
+            it { should_not be_possessing(list) }
+        end
     end
 end
