@@ -10,6 +10,17 @@ describe "StaticPages" do
         it { should have_selector('h1', text: 'Woo Do') }
         it { should have_selector('title', text: 'Woo Do | Save Tasks') }
         it { should have_link('Sign up') }
-        it { should have_selector('div.input-command') }
+        
+        describe "after signin" do
+            let(:user) { FactoryGirl.create(:user) }
+            let!(:list) { FactoryGirl.create(:list, title: "List Name") }
+
+            before do
+                user.posses!(list)
+                sign_in user
+            end
+
+            it { should have_content(list.title) }
+        end
     end
 end

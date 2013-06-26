@@ -4,7 +4,8 @@ class User < ActiveRecord::Base
 
     has_secure_password
 
-    has_many :lists
+    has_many :relationships
+    has_many :lists, through: :relationships
 
     before_save { |user| user.email = email.downcase }
 
@@ -13,6 +14,18 @@ class User < ActiveRecord::Base
     validates :email, presence: true, format: { with: VALID_FORMAT }, uniqueness: { case_sensitivity: false }
     validates :password, presence: true, length: { minimum: 6 }
     validates :password_confirmation, presence: true
+
+    def posses!(list)
+        relationships.create!(list_id: list.id)
+    end
+
+    def possessing?(list)
+        relationships.find_by_list_id(list.id)
+    end
+
+    def unpossess!(list)
+        relationships.find_by_list_id(list.id).destroy
+    end
 
     private
         def create_remember_token

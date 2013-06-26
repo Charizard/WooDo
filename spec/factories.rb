@@ -7,6 +7,5 @@ FactoryGirl.define do
     end
     factory :list do
         title "Sample Title"
-        user
     end
 end

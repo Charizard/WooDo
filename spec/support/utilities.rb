@@ -9,3 +9,9 @@ def sign_in(user)
             
             cookies[:remember_token] = user.remember_token
 end
+
+def create_list_under_user(param)
+    @list = List.new(param[:title])
+    param[:user].relationships.create!(list_id: list_id)
+    return @list
+end
