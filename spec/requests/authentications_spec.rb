@@ -30,7 +30,8 @@ describe "Authentications" do
         it { should have_link('Sign out') }
         it { should have_link('Profile') }
         it { should_not have_link('Sign in') }
-        
+        it { should have_button('Create') }
+
         describe "should redirect root url" do
             it { should have_selector("title", text: "Save Tasks") }
             

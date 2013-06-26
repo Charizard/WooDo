@@ -3,6 +3,7 @@ class StaticPagesController < ApplicationController
     if signed_in?
         @user = current_user 
         @lists = current_user.lists
+        @task = Task.new
     end
   end
 end

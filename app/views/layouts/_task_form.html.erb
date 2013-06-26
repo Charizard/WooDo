@@ -1,0 +1,7 @@
+<div class="row">
+    <div id="show-error"> </div>
+    <%= form_for @task, :remote => true, :html => { :class => "form-inline task-creator" } do |f| %>
+            <%= f.text_field :content, class: "input-xlarge"  %>
+            <%= f.submit "Create", class: "btn"  %>
+    <% end %>
+</div>

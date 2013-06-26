@@ -7,6 +7,7 @@ describe List do
 
 
     it { should respond_to(:title) }
+    it { should respond_to(:completed) }
 
     describe "association with user" do
         let(:user) { FactoryGirl.create(:user) }
@@ -32,5 +33,21 @@ describe List do
     describe "with empty title" do
         before { @list.title = "" }
         it { should_not be_valid }
+    end
+    
+    describe "association with Task" do
+        let(:task) { FactoryGirl.create(:task, list_id: @list.id) }
+
+        it { should respond_to(:tasks) }
+        its(:tasks) { should include(task) }
+    end
+    
+    describe "incomplete" do
+        it { should_not be_completed }
+
+        describe "toggling" do
+            before { @list.completed = true }
+            it { should be_completed }
+        end
     end
 end

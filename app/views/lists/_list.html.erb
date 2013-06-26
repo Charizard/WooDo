@@ -1,7 +1,61 @@
 <li class="span4 list-container">
     <div class="list-title"> 
         <%= list.title %>
+        <% if !list.completed? %>
+        <span class="incomplete">
+            <%= link_to edit_list_url(list.id) do %>
+                <i class="icon-thumbs-up icon-white"></i>
+            <% end %>
+        </span>
+        <% else %>
+        <span class="completed">
+            <%= link_to edit_list_url(list.id) do %>
+                <i class="icon-thumbs-down icon-white"></i>
+            <% end %>
+        </span>
+        <% end %>
+        <span>
+            <%= link_to list, method: :delete, data: { confirm: "Are you sure?" } do  %>
+                <i class="icon-trash icon-white"></i>
+            <% end %>
+        </span>
    </div>
+   <% if list.tasks.any? %>
    <div class="list-body">
+        <% list.tasks.pending.each do |task| %>
+        <ul class="incomplete">
+            <li>
+                <%= task.content %>
+                <span>
+                    <%= link_to edit_task_url(task.id) do %>
+                        <i class="icon-thumbs-up"></i>
+                    <% end %>
+                </span>
+                <span>
+                    <%= link_to task, method: :delete, data: { confirm: "Are you sure?" } , id: "task-delete" do %>
+                        <i class="icon-trash"></i>
+                    <% end %>
+                </span>
+            </li>
+        </ul>
+        <% end %>
+        <% list.tasks.completed.each do |task| %>
+        <ul class="completed">
+            <li>
+                <%= task.content %>
+                <span>
+                    <%= link_to edit_task_url(task.id) do %>
+                        <i class="icon-thumbs-down"></i>
+                    <% end %>
+                </span>
+                <span>
+                    <%= link_to task, method: :delete, data: { confirm: "Are you sure?" } , id: "task-delete" do %>
+                        <i class="icon-trash"></i>
+                    <% end %>    
+                </span>
+            </li>
+        </ul>
+        <% end %>
    </div>
+   <% end %>
 </li>

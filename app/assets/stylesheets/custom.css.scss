@@ -32,12 +32,19 @@ h1{
     }
 }
 
+/*Task Creator*/
+
+.task-creator{
+    margin-top: 20px;
+}
+
+
 /*Lists*/
 .lists{
-    margin: 40px 0; 
+    margin: 10px 0; 
     list-style-type: none;
     position: relative;
-    li{
+    .list-container{
         width: 30%;
         height: 300px;
         border-radius: 7px;
@@ -49,11 +56,32 @@ h1{
             color: #fff;
             border-top-right-radius: 7px;
             border-top-left-radius: 7px;
-            background-color: ;
+            background-color: #000;
+            span{
+                float: right;
+                font-size: 16px;
+                margin: 0 5px;
+            }
         }
         .list-body{
-            min-height: 20%;
-            heigth: 20%;
+            ul{
+                list-style-type: none;
+                margin: 0px;
+                li{
+                    margin: 3px 20px;
+                    text-align: left;
+                    border-bottom: 1px solid #111;
+                    span{
+                        float: right;
+                        margin: 0 5px;
+                    }
+                }
+            }
+            .completed{
+                bottom: 0px;
+                color: green;
+                font-weight: bold
+            }
         }
     }
 }

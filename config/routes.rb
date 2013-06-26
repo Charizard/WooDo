@@ -1,6 +1,8 @@
 WooDo::Application.routes.draw do
     resources :users, only: [:new, :create, :edit, :update, :show, :update]
     resources :sessions, only: [:new, :create, :destroy]
+    resources :tasks
+    resources :lists, only: [:create, :show, :destroy, :edit]
 
     get "static_pages/home"
 
