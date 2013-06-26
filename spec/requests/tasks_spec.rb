@@ -18,7 +18,7 @@ describe "Tasks" do
             it { find('div.uncompleted').should have_content(task.content) }
         end
         describe "after toggling" do
-            before { visit edit_user(user.id) }
+            before { visit edit_task(task.id) }
 
             it { find('div.completed').should have_content(task.content) }
         end

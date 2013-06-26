@@ -17,8 +17,7 @@ class TasksController < ApplicationController
             end
        
             respond_to do |format|
-                format.html { render "layouts/_list" }
-                format.js { render "tasks/task.js.erb" }
+                format.js
             end
         rescue Exception => e
             respond_to do |format|
