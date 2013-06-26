@@ -31,7 +31,8 @@ describe "Authentications" do
         it { should have_link('Profile') }
         it { should have_selector('title', text: user.name) }
         it { should_not have_link('Sign in') }
-        
+        it { should have_selector('div.task-creator') }
+
         describe "Sign out" do
             before do
                 click_link "Sign out"
