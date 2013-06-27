@@ -1,5 +1,5 @@
-<% if @user.lists.any? %>
-    <ol class="row lists">
+<ol class="row" id="lists">
+    <% if @user.lists.any? %>
         <%= render @lists %>
-    </ol>
-<% end %>
+    <% end %>
+</ol>

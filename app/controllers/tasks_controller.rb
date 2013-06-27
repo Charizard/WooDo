@@ -6,8 +6,8 @@ class TasksController < ApplicationController
         @lists = current_user.lists
         begin
             if signed_in?
-                if List.find_by_title(@names[1])
-                    @list = List.find_by_title(@names[1])
+                if @lists.pluck(:title).include?(@names[1])
+                    @list = @lists.find_by_title(@names[1])
                 else
                     @list = List.create(title: @names[1])
                 end
@@ -15,26 +15,34 @@ class TasksController < ApplicationController
                 rel.save
                 task = @list.tasks.create(content: @names[0])
             end
-       
+      
+            flash.now[:success] = "Created successfully."
             respond_to do |format|
                 format.js
             end
         rescue Exception => e
+            flash.now[:error] = "Invalid Command"
             respond_to do |format|
-                format.js {  }
+                format.js
             end
         end
     end
 
     def destroy
         Task.find(params[:id]).destroy
-        redirect_to '/'
+        @lists = current_user.lists
+        respond_to do |format|
+            format.js
+        end
     end
 
     def edit
         task = Task.find(params[:id])
         task.completed = !task.completed
         task.save
-        redirect_to '/'
+        @lists = current_user.lists
+        respond_to do |format|
+            format.js
+        end
     end
 end

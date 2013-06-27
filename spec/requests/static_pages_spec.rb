@@ -24,6 +24,29 @@ describe "StaticPages" do
             it { should have_content(task.content) }
             it { should have_link('delete') }
 
+            describe "Task creation in existing List" do
+                let(:new_task) { "Sample Task" }
+
+                before do
+                    fill_in "task_content",  with: "#{new_task}@#{list.title}"
+                end
+
+                it "should create user" do
+                    expect { click_button "Create" }.to change(Task, :count).by(1)
+                end
+            end
+
+            describe "Task creation in new List" do
+                let(:new_task) { "Sample Task" }
+                let(:new_list) { "Sample List" }
+                before do
+                    fill_in "task_content",  with: "#{new_task}@#{new_list}"
+                end
+                it "should have Sample Task" do
+                    expect { click_button "Create" }.to change(Task, :count).by(1)
+                end
+            end
+
             describe "List Deletion" do
                 it "should delete list" do
                     expect { click_link "delete" }.to change(List, :count).by(-1)

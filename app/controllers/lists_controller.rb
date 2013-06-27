@@ -10,7 +10,10 @@ class ListsController < ApplicationController
             task.save
         end
         list.save
-        redirect_to '/'
+        @lists = current_user.lists
+        respond_to do |format|
+            format.js
+        end
     end
 
     def show
@@ -22,11 +25,29 @@ class ListsController < ApplicationController
 
     def destroy
         List.find(params[:id]).destroy
-        redirect_to '/'
+        @lists = current_user.lists
+        respond_to do |format|
+            format.js
+        end
     end
 
-    def complete
-        task = Task.find(params[:id])
-        task.completed =true
+    def share
+        begin
+            @lists = current_user.lists
+            user = User.find_by_email(params[:list][:user][:email])
+            list = List.find(params[:list_id])
+            user.relationships.create(list_id: list.id)
+
+            flash.now[:success] = "Successfully shared to #{params[:list][:user][:email]}"
+            respond_to do |format|
+                format.js
+            end
+        rescue
+            flash.now[:error] = "Cannot share."
+            respond_to do |format|
+               format.js
+            end
+        end
     end
+
 end

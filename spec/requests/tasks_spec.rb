@@ -6,21 +6,24 @@ describe "Tasks" do
 
     describe "Toggle completed" do
         let(:user) { FactoryGirl.create(:user) }
-        let(:list) { FactoryGirl.create(:list, user_id: user.id) }
-        let(:task) { FactoryGirl.create(:task, list_id: list.id) }
+        let!(:list) { FactoryGirl.create(:list, title: "Sample List") }
+        let!(:task) { FactoryGirl.create(:task, list_id: list.id) }
 
         before do
+            user.posses!(list)
             sign_in user
             visit '/'
         end
 
         describe "initially uncompleted" do
-            it { find('div.uncompleted').should have_content(task.content) }
+            it "enable js", :js => true do
+                find('ul.incomplete').should have_content(task.content)
+            end
         end
         describe "after toggling" do
-            before { visit edit_task(task.id) }
+            before { visit edit_task_url(task.id) }
 
-            it { find('div.completed').should have_content(task.content) }
+            it { find('ul.completed').should have_content(task.content) }
         end
     end
 

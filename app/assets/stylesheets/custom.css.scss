@@ -40,7 +40,7 @@ h1{
 
 
 /*Lists*/
-.lists{
+#lists{
     margin: 10px 0; 
     list-style-type: none;
     position: relative;
@@ -81,6 +81,11 @@ h1{
                 bottom: 0px;
                 color: green;
                 font-weight: bold
+            }
+        }
+        .list-footer-container{
+            .list-footer{
+                width: 100%;
             }
         }
     }
