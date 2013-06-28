@@ -18,11 +18,9 @@ describe "Authentications" do
     end
 
     describe "with valid information" do
-        let(:user) { User.create(:email => "sample187@gmail.com", :name => 'Sample user', :password => 'foobar', :password_confirmation => 'foobar') }
 
         before do
-            User.any_instance.stub(:authenticate).with(user.password).and_return(true)
-            puts user
+            user = User.create(:email => "sample187@gmail.com", :name => 'Sample user', :password => 'foobar', :password_confirmation => 'foobar')
             fill_in "Email",        with: user.email
             fill_in "Password",     with: user.password
             click_button "Sign in"
