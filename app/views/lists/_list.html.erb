@@ -1,7 +1,71 @@
 <li class="span4 list-container">
     <div class="list-title"> 
         <%= list.title %>
-   </div>
+        <% if !list.completed? %>
+        <span class="incomplete">
+            <%= link_to edit_list_url(list.id), remote: true do %>
+                <i class="icon-thumbs-up icon-white"></i>
+            <% end %>
+        </span>
+<% else %>
+<span class="completed">
+    <%= link_to edit_list_url(list.id), remote: true do %>
+        <i class="icon-thumbs-down icon-white"></i>
+    <% end %>
+</span>
+<% end %>
+<span>
+    <%= link_to list, method: :delete, data: { confirm: "Are you sure?" }, remote: true, id: "delete" do  %>
+        <i class="icon-trash icon-white"></i>
+    <% end %>
+</span>
+    </div>
+       <% if list.tasks.any? %>
    <div class="list-body">
+        <% list.tasks.pending.each do |task| %>
+        <ul class="incomplete">
+            <li id="task_<%= task.id %>">
+                <%= task.content %>
+                <span>
+                    <%= link_to edit_task_url(task.id), remote: true do %>
+                        <i class="icon-thumbs-up"></i>
+                    <% end %>
+                </span>
+                <span>
+                    <%= link_to task, method: :delete, data: { confirm: "Are you sure?" } , remote: true, id: "task-delete" do %>
+                        <i class="icon-trash"></i>
+                    <% end %>
+                </span>
+            </li>
+        </ul>
+        <% end %>
+        <% list.tasks.completed.each do |task| %>
+        <ul class="completed">
+            <li id="task_<%= task.id %>">
+                <%= task.content %>
+                <span>
+                    <%= link_to edit_task_url(task.id), remote: true do %>
+                        <i class="icon-thumbs-down"></i>
+                    <% end %>
+                </span>
+                <span>
+                    <%= link_to task, method: :delete, data: { confirm: "Are you sure?" }, remote: true, id: "task-delete" do %>
+                        <i class="icon-trash"></i>
+                    <% end %>    
+                </span>
+            </li>
+        </ul>
+        <% end %>
+   </div>
+   <% end %>
+   <div class="list-footer-container">
+        <div class="list-footer">
+        <%= form_for list, :url => list_share_path(list), remote: true, :method => :post, :html => { :class => "form-inline" } do |list_form| %>
+            <%= list_form.fields_for :user do |user_form| %>
+                <%= user_form.text_field :email, class: "input-small" %>
+                <%= user_form.submit "Share", class: "btn" %>
+            <% end %>
+        <% end %> 
+        </div>
    </div>
 </li>

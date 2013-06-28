@@ -16,6 +16,7 @@ describe Task do
 
   it { should respond_to(:content) }
   it { should respond_to(:list) }
+  it { should respond_to(:completed) }
 
   describe "task content should not be" do
     describe "blank" do

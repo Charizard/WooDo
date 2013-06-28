@@ -1,0 +1,3 @@
+$('#lists').html("<%= escape_javascript(render @lists) %>");
+$('.task-creator')[0].reset();
+$('#show-error').html(" <%= escape_javascript( render 'shared/flash_messages' ) %> ");

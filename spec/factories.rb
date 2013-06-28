@@ -8,4 +8,9 @@ FactoryGirl.define do
     factory :list do
         title "Sample Title"
     end
+
+    factory :task do
+        content "Sample content"
+        list
+    end
 end
