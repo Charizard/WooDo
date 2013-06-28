@@ -11,7 +11,7 @@ gem 'underscore-rails'
 
 
 group :development, :test do
-	gem 'sqlite3'
+	gem 'mysql2'
 	gem 'rspec-rails'
         gem 'annotate'
 end
