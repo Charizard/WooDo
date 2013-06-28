@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: lists
+#
+#  id         :integer          not null, primary key
+#  title      :string(255)
+#  user_id    :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  completed  :boolean          default(FALSE)
+#
+
 require 'spec_helper'
 
 describe List do

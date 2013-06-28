@@ -7,6 +7,7 @@ WooDo::Application.routes.draw do
 
     resources :lists, only: [:create, :show, :destroy, :edit] do
         post :share
+        post :reorder
     end
 
     get "static_pages/home"

@@ -24,8 +24,8 @@
    <div class="list-body">
         <% list.tasks.pending.each do |task| %>
         <ul class="incomplete">
-            <li id="task_<%= task.id %>">
-                <%= task.content %>
+            <li id="task" class="draggable">
+                <%= task.content %> <div id="task_order_number" style="visibility: hidden"><%= task.order_number %></div> <div id="list_id" style="visibility: hidden"><%= list.id %></div>
                 <span>
                     <%= link_to edit_task_url(task.id), remote: true do %>
                         <i class="icon-thumbs-up"></i>
@@ -41,8 +41,8 @@
         <% end %>
         <% list.tasks.completed.each do |task| %>
         <ul class="completed">
-            <li id="task_<%= task.id %>">
-                <%= task.content %>
+            <li id="task">
+                <%= task.content %><%= task.order_number %>
                 <span>
                     <%= link_to edit_task_url(task.id), remote: true do %>
                         <i class="icon-thumbs-down"></i>
@@ -62,8 +62,10 @@
         <div class="list-footer">
         <%= form_for list, :url => list_share_path(list), remote: true, :method => :post, :html => { :class => "form-inline" } do |list_form| %>
             <%= list_form.fields_for :user do |user_form| %>
+                <div class="input-append">
                 <%= user_form.text_field :email, class: "input-small" %>
                 <%= user_form.submit "Share", class: "btn" %>
+                </div>
             <% end %>
         <% end %> 
         </div>

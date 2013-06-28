@@ -50,6 +50,7 @@ h1{
         border-radius: 7px;
         box-shadow:inset 0px 0px 5px 5px #ccc;
         margin: 40px 10px;
+        position: relative;
         .list-title{
             padding: 20px 0;
             font-size: 30px;
@@ -84,9 +85,18 @@ h1{
             }
         }
         .list-footer-container{
+            position: absolute;
+            bottom: 0px;
+            width:100%;
             .list-footer{
                 width: 100%;
             }
         }
+    }
+    #list_id{
+        display: inline;
+    }
+    #task_order_number{
+        display: inline;
     }
 }

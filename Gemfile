@@ -3,6 +3,8 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.13'
 gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
+gem 'jquery-ui-rails'
+gem 'underscore-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
@@ -11,6 +13,7 @@ gem 'bcrypt-ruby'
 group :development, :test do
 	gem 'sqlite3'
 	gem 'rspec-rails'
+        gem 'annotate'
 end
 
 

@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: tasks
+#
+#  id           :integer          not null, primary key
+#  content      :string(255)
+#  list_id      :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  completed    :boolean          default(FALSE)
+#  order_number :integer
+#
+
 require 'spec_helper'
 
 describe Task do

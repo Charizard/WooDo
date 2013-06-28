@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130627135846) do
+ActiveRecord::Schema.define(:version => 20130628092102) do
 
   create_table "lists", :force => true do |t|
     t.string   "title"
@@ -32,15 +32,26 @@ ActiveRecord::Schema.define(:version => 20130627135846) do
   add_index "relationships", ["user_id", "list_id"], :name => "index_relationships_on_user_id_and_list_id", :unique => true
   add_index "relationships", ["user_id"], :name => "index_relationships_on_user_id"
 
+  create_table "sessions", :force => true do |t|
+    t.string   "session_id", :null => false
+    t.text     "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
+  add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
+
   create_table "tasks", :force => true do |t|
     t.string   "content"
     t.integer  "list_id"
-    t.datetime "created_at",                    :null => false
-    t.datetime "updated_at",                    :null => false
-    t.boolean  "completed",  :default => false
-    t.integer  "order"
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "completed",    :default => false
+    t.integer  "order_number"
   end
 
+  add_index "tasks", ["list_id", "order_number"], :name => "index_tasks_on_list_id_and_order", :unique => true
   add_index "tasks", ["list_id"], :name => "index_tasks_on_list_id"
 
   create_table "users", :force => true do |t|

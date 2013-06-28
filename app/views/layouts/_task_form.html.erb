@@ -2,7 +2,9 @@
     <div id="show-error"> </div>
     <%= form_for @task, :remote => true, :html => { :class => "form-inline task-creator" } do |f| %>
             <%= render 'shared/error_messages', object: f.object %>
+            <div class="input-append">
             <%= f.text_field :content, class: "input-xlarge"  %>
             <%= f.submit "Create", class: "btn"  %>
+            </div>
     <% end %>
 </div>
