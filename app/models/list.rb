@@ -18,4 +18,11 @@ class List < ActiveRecord::Base
   has_many :tasks, :dependent => :destroy
   has_many :relationships
   has_many :users, through: :relationships
+
+  def complete
+    list.completed = true
+    lists.tasks.each do |task|
+      task.complete!
+    end
+  end
 end

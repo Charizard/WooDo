@@ -3,6 +3,11 @@ class ListsController < ApplicationController
 
     def create
     end
+  
+    def complete
+        list = List.find(params[:id])
+        list.complete!
+    end
 
     def edit
         list = List.find(params[:id])

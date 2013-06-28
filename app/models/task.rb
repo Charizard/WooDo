@@ -21,4 +21,8 @@ class Task < ActiveRecord::Base
   validates :content, presence: true, length: { maximum: 30 }
   validates :order_number, presence: true
 
+  def complete
+    self.complete = true
+    self.save!
+  end
 end
