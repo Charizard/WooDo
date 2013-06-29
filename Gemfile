@@ -4,16 +4,16 @@ gem 'rails', '3.2.13'
 gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
 gem 'jquery-ui-rails'
-gem 'underscore-rails'
+gem 'selenium-webdriver'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
 
 group :development, :test do
-	gem 'mysql2'
+	gem 'sqlite3'
 	gem 'rspec-rails'
-        gem 'annotate'
+  gem 'annotate'
 end
 
 
@@ -41,7 +41,7 @@ group :production do
 	gem 'pg'
 end
 
-# To use ActiveModel has_secure_password
+# To use ActiveModel has_secure_passwordi
 # gem 'bcrypt-ruby', '~> 3.0.0'
 
 # To use Jbuilder templates for JSON

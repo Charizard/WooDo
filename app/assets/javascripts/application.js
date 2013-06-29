@@ -17,22 +17,16 @@
 //= require_tree .
 
 $(function(){
-    $('.incomplete').draggable();
-    $('.incomplete').droppable({
-        drop: function(event, ui){
-            var src = ui.draggable.text().trim().split(' ');
-            var from_list_id = src[2];
-            var from_order_number = src[1];
-            var dest = $(this).text().trim().split(' ');
-            var to_list_id = src[2];
-            var to_order_number = src[1];
-            $.ajaxSetup({
+	$("#task-sortable").sortable();
+	$("#task-sortable").on('sortupdate',function(event,ui){
+		after = $("#task-sortable").sortable("toArray");
+		list_id = $(this).parent().prev().find('#list-id').text();
+		$.ajaxSetup({
                 'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript") }
-            });
-            $.ajax('lists/'+ from_list_id +'/reorder/', {
+        });
+		$.ajax('lists/'+ list_id +'/reorder/', {
                 type: "POST",
-                data: { from_list_id: from_list_id, from_order_number: from_order_number, to_list_id: to_list_id, to_order_number: to_order_number }
-            });
-        }
-    });
+                data: { array: after,list: list_name }
+        });
+	});
 });

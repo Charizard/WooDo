@@ -1,24 +1,24 @@
 development:
-  adapter: mysql2
-  database: woodo_development
+  adapter: sqlite3
+  database: db/development.sqlite3
   username: root
-  password: root
+  password: 
   pool: 25
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  adapter: mysql2
-  database: woodo_test
+  adapter: sqlite3
+  database: db/test.sqlite3
   username: root
-  password: root
+  password: 
   pool: 25
+
 
 production:
-  adapter: mysql2
-  database: woodo_development
+  adapter: sqlite3
+  database: db/development.sqlite3
   username: root
-  password: root
+  password: 
   pool: 25
-

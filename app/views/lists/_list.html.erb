@@ -1,6 +1,7 @@
 <li class="span4 list-container">
     <div class="list-title"> 
         <%= list.title %>
+        <span id="list-id" style="visibility: hidden"><%= list.id %></span>
         <% if !list.completed? %>
         <span class="incomplete">
             <%= link_to edit_list_url(list.id), remote: true do %>
@@ -22,9 +23,9 @@
     </div>
        <% if list.tasks.any? %>
    <div class="list-body">
-        <% list.tasks.pending.each do |task| %>
-        <ul class="incomplete">
-            <li id="task" class="draggable">
+   <ul class="incomplete" id="task-sortable">
+        <% list.tasks.pending.each do |task| %> 
+            <li id="<%= "#{task.order_number}" %>" class="draggable">
                 <%= task.content %> <div id="task_order_number" style="visibility: hidden"><%= task.order_number %></div> <div id="list_id" style="visibility: hidden"><%= list.id %></div>
                 <span>
                     <%= link_to edit_task_url(task.id), remote: true do %>
@@ -37,8 +38,8 @@
                     <% end %>
                 </span>
             </li>
-        </ul>
         <% end %>
+        </ul>
         <% list.tasks.completed.each do |task| %>
         <ul class="completed">
             <li id="task">

@@ -56,31 +56,9 @@ class ListsController < ApplicationController
             end
         end
     end
-=begin
     def reorder
-        @lists = current_user.lists
-        #begin
-            @from_list_id = params[from_list_id]
-            @from_order_number = params[from_order_number]
-            @to_list_id = params[to_list_id]
-            @to_order_number = params[to_order_number]
-            if @from_list_id == @to_list_id do
-                rearrange_within_list @from_list_id, @from_order_number, @to_order_number
-            end
-
-            flash.now[:success] = "Successfully reordered."
-
-            #respond_to do |format|
-            #    format.js
-            #end
-        #rescue Exception => e
-         #   flash.now[:error] = e
-
-          #  respond_to do |format|
-           #     format.js
-            #end
+        respond_to do |format|
+            format.js
         end
     end
-=end
-
 end

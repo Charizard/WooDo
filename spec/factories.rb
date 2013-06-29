@@ -12,5 +12,6 @@ FactoryGirl.define do
     factory :task do
         content "Sample content"
         list
+        order_number
     end
 end

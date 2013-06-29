@@ -6,7 +6,9 @@ describe "User Pages" do
     describe "Sign up Page" do
         before { visit signup_path }
 
-        it { should have_selector('title', text: "Sign up") }
+        it "Sign up path", :js => true do
+            should have_selector('title', text: "Sign up")
+        end
         it { should have_selector('h1', text: "Sign up") }
 
         describe "fill in form with valid information" do

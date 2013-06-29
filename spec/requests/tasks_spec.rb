@@ -7,7 +7,7 @@ describe "Tasks" do
     describe "Toggle completed" do
         let(:user) { FactoryGirl.create(:user) }
         let!(:list) { FactoryGirl.create(:list, title: "Sample List") }
-        let!(:task) { FactoryGirl.create(:task, list_id: list.id) }
+        let!(:task) { FactoryGirl.create(:task, list_id: list.id, order_number: List.tasks.count + 1) }
 
         before do
             user.posses!(list)

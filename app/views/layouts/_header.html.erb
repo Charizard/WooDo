@@ -1,22 +1,22 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="brand" href="/" style="font-size: 40px;margin: 5px;">Woo Do</a>
-            <div class="nav pull-right">
-            <% if signed_in? %>
-                <li id="fat-menu" class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= gravatar_for current_user, size: 30 %>Account<b class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <li><%= link_to "Profile", current_user %></li>
-                        <li><%= link_to "Settings", '#' %></li>
-                        <li class="divider"></li>
-                        <li><%= link_to "Sign out", signout_path, method: "delete" %></li>
-                    </ul>
-                </li>
-            <% else %>
-                <a href="<%= signin_path %>" type="button" class="btn btn-primary">Sign in</a> 
-            <% end %>
-            </div>
-        </div>
-    </div>
+		<div class="navbar-inner">
+				<div class="container">
+						<a class="brand" href="/" style="font-size: 40px;margin: 5px;">Woo Do</a>
+						<div class="nav pull-right">
+						<% if signed_in? %>
+								<li id="fat-menu" class="dropdown">
+										<a href="#" class="dropdown-toggle" data-toggle="dropdown"><%= gravatar_for current_user, size: 30 %><%= current_user.name %><b class="caret"></b></a>
+										<ul class="dropdown-menu">
+												<li><%= link_to "Profile", current_user %></li>
+												<li><%= link_to "Settings", '#' %></li>
+												<li class="divider"></li>
+												<li><%= link_to "Sign out", signout_path, method: "delete" %></li>
+										</ul>
+								</li>
+						<% else %>
+								<a href="<%= signin_path %>" type="button" class="btn btn-primary">Sign in</a> 
+						<% end %>
+						</div>
+				</div>
+		</div>
 </div>
