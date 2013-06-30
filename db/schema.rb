@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130628092102) do
+ActiveRecord::Schema.define(:version => 20130630071329) do
 
   create_table "lists", :force => true do |t|
     t.string   "title"
@@ -50,7 +50,6 @@ ActiveRecord::Schema.define(:version => 20130628092102) do
     t.integer  "order_number"
   end
 
-  add_index "tasks", ["list_id", "order_number"], :name => "index_tasks_on_list_id_and_order", :unique => true
   add_index "tasks", ["list_id"], :name => "index_tasks_on_list_id"
 
   create_table "users", :force => true do |t|

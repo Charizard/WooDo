@@ -23,7 +23,7 @@ class TasksController < ApplicationController
                 format.js
             end
         rescue Exception => e
-            flash.now[:error] = e
+            flash.now[:error] = "Syntax Error."
             respond_to do |format|
                 format.js
             end

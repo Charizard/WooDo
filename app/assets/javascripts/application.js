@@ -17,16 +17,18 @@
 //= require_tree .
 
 $(function(){
-	$("#task-sortable").sortable();
-	$("#task-sortable").on('sortupdate',function(event,ui){
-		after = $("#task-sortable").sortable("toArray");
-		list_id = $(this).parent().prev().find('#list-id').text();
-		$.ajaxSetup({
-                'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript") }
-        });
-		$.ajax('lists/'+ list_id +'/reorder/', {
-                type: "POST",
-                data: { array: after,list: list_name }
-        });
+	$("#task-sortable").sortable({
+			update: function() {
+				after = $("#task-sortable").sortable("toArray");
+				list_id = $(this).parent().prev().find('#list-id').text();
+				$.ajaxSetup({
+    				'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript") }
+    		});
+				$.ajax({
+						url: '/lists/'+ list_id +'/reorder/',
+    				type: "POST",
+    		    data: { reorder: after }
+    		  });
+			}
 	});
 });
