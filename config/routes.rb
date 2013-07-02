@@ -15,7 +15,7 @@ WooDo::Application.routes.draw do
    
 
 
-    match '/', to: "static_pages#home"
+    root to: "static_pages#home"
 
     match '/signin', to: "sessions#new"
     match '/signout', to: "sessions#destroy"

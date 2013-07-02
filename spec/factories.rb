@@ -1,17 +1,17 @@
 FactoryGirl.define do
     factory :user do
         name "Yuvaraja"
-        email "yuv.slm@gmail.com"
+        sequence(:email){|n| "user#{n}@gmail.com"}
         password "foobar"
         password_confirmation "foobar"
     end
     factory :list do
-        title "Sample Title"
+        sequence(:title){|n| "title#{n}"}
     end
 
     factory :task do
         content "Sample content"
-        list
-        order_number
+        list_id nil
+        order_number nil
     end
 end

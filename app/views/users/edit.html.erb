@@ -1,0 +1,33 @@
+<% provide(:title,"Settings") %>
+
+<div class="row">
+    <div class="span3">
+        <%= gravatar_for @user, size: 200 %>
+    </div>
+    <div class="span6">
+        <h1><%= @user.name %></h1>
+        <h3><%= @user.email %></h3>
+        <%= form_for @user, url: { action: "update" }, html: { class: "form-horizontal" } do |f| %>
+        	<%= render 'shared/error_messages', object: @user %>
+        	<%= f.hidden_field :name %>
+        	<%= f.hidden_field :email %>
+        	<div class="control-group">
+        		<%= f.label :password, class: "control-label" %>
+        		<div class="controls">
+        			<%= f.password_field :password %>
+        		</div>
+        	</div>
+        	<div class="control-group">
+        		<%= f.label :password_confirmation, class: "control-label" %>
+        		<div class="controls">
+        			<%= f.password_field :password_confirmation %>
+        		</div>
+        	</div>
+        	<div class="control-group">
+        		<div class="controls">
+        			<%= f.submit "Change Password", class: "btn" %>
+        		</div>
+        	</div>
+        <% end %>
+    </div>
+</div

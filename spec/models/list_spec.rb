@@ -13,7 +13,7 @@
 require 'spec_helper'
 
 describe List do
-    before { @list = List.create(title: "Sample Title") }
+    before { @list = List.create(title: "Sample Title 43534") }
 
     subject { @list }
 
@@ -22,11 +22,9 @@ describe List do
     it { should respond_to(:completed) }
 
     describe "association with user" do
-        let(:user) { FactoryGirl.create(:user) }
+        let(:user) { FactoryGirl.create(:user, email: "yuv.slm@sample2453.com") }
         before do
-            @list.save
-            rel = user.relationships.build(list_id: @list.id)
-            rel.save
+            user.relationships.create(list_id: @list.id)
         end
         it { should respond_to(:users) }
         its(:users) { should include(user) }
@@ -48,7 +46,7 @@ describe List do
     end
     
     describe "association with Task" do
-        let(:task) { FactoryGirl.create(:task, list_id: @list.id) }
+        let(:task) { FactoryGirl.create(:task, list_id: @list.id, order_number: 1 ) }
 
         it { should respond_to(:tasks) }
         its(:tasks) { should include(task) }

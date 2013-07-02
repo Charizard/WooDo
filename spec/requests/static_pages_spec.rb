@@ -7,14 +7,15 @@ describe "StaticPages" do
     describe "Home Page" do
         before { visit '/static_pages/home' }
 
-        it { should have_selector('h1', text: 'Woo Do') }
-        it { should have_selector('title', text: 'Woo Do | Save Tasks') }
+        it "should have Woo Do" do
+            should have_selector('h1', text: 'Woo Do')
+        end
         it { should have_link('Sign up') }
         
         describe "after signin" do
             let(:user) { FactoryGirl.create(:user) }
-            let!(:list) { FactoryGirl.create(:list, title: "List Name") }
-            let!(:task) { FactoryGirl.create(:task, list_id: list.id) }
+            let!(:list) { FactoryGirl.create(:list) }
+            let!(:task) { FactoryGirl.create(:task, list_id: list.id, order_number: 546) }
             before do
                 user.posses!(list)
                 sign_in user
@@ -22,7 +23,7 @@ describe "StaticPages" do
 
             it { should have_content(list.title) }
             it { should have_content(task.content) }
-            it { should have_link('delete') }
+            it { should have_link('list-delete') }
 
             describe "Task creation in existing List" do
                 let(:new_task) { "Sample Task" }
@@ -37,8 +38,8 @@ describe "StaticPages" do
             end
 
             describe "Task creation in new List" do
-                let(:new_task) { "Sample Task" }
-                let(:new_list) { "Sample List" }
+                let(:new_task) { "Sample Task123" }
+                let(:new_list) { "Sample List2142" }
                 before do
                     fill_in "task_content",  with: "#{new_task}@#{new_list}"
                 end
@@ -49,10 +50,10 @@ describe "StaticPages" do
 
             describe "List Deletion" do
                 it "should delete list" do
-                    expect { click_link "delete" }.to change(List, :count).by(-1)
+                    expect { click_link "list-delete" }.to change(List, :count).by(-1)
                 end
                 it " should also delete tasks" do
-                    expect { click_link "delete" }.to change(Task, :count).by(list.tasks.count*-1)
+                    expect { click_link "task-delete" }.to change(Task, :count).by(list.tasks.count*-1)
                 end
             end
 

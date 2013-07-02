@@ -2,28 +2,18 @@ class TasksController < ApplicationController
     include TasksHelper
 
     def create
-        @names = params[:task][:content].split('@')
+        task, list = params[:task][:content].split('@')
         @user = current_user
         @lists = current_user.lists
         begin
-            if signed_in?
-                if @lists.pluck(:title).include?(@names[1])
-                    @list = @lists.find_by_title(@names[1])
-                else
-                    @list = List.create(title: @names[1])
-                end
-                rel = current_user.relationships.where(list_id: @list.id).first_or_initialize
-                rel.save
-
-                task = @list.tasks.create(content: @names[0], order_number: @list.tasks.count + 1 )
-            end
+            create_task_and_list task, list
       
             flash.now[:success] = "Created successfully."
             respond_to do |format|
                 format.js
             end
         rescue Exception => e
-            flash.now[:error] = "Syntax Error."
+            flash.now[:error] = e
             respond_to do |format|
                 format.js
             end
@@ -41,9 +31,9 @@ class TasksController < ApplicationController
             respond_to do |format|
                 format.js
             end
-        rescue
+        rescue Exception => e
             respond_to do |format|
-                flash.now[:error] = "Could not delete."
+                flash.now[:error] = e
                 format.js
             end
         end

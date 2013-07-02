@@ -6,7 +6,7 @@ describe "Authentications" do
   describe "signin page" do
     before { visit signin_path }
 
-    it { should have_selector('title',text: "Sign in") }
+    it { should have_title("Sign in") }
     it { should have_selector('h1', text: "Sign in") }
 
     describe "with invalid information" do
@@ -18,9 +18,8 @@ describe "Authentications" do
     end
 
     describe "with valid information" do
-
+        let(:user) { FactoryGirl.create(:user) }
         before do
-            user = User.create(:email => "sample187@gmail.com", :name => 'Sample user', :password => 'foobar', :password_confirmation => 'foobar')
             fill_in "Email",        with: user.email
             fill_in "Password",     with: user.password
             click_button "Sign in"
@@ -31,7 +30,6 @@ describe "Authentications" do
         it { should have_link('Profile') }
         it { should_not have_link('Sign in') }
         it { should have_button('Create') }
-        it { should have_selector('title', text: "Woo Do") }
 
         describe "List and Task creation" do
             describe "with valid information" do
@@ -42,15 +40,17 @@ describe "Authentications" do
                     click_button "Create"
                 end
 
-                it "should contain new title", :js => true do
-                    find('.list-title').should have_content(new_list)
+                it "new_list present", :js => true do
+                    should have_content(new_list)
                 end
-                it { find('.list-body .incomplete').should have_content(new_task) }
+                it "new_task present", :js => true do
+                    should have_content(new_task)
+                end
             end
         end
 
         describe "should redirect root url" do
-            it { should have_selector("title", text: "Save Tasks") }
+            it { should have_title("Woo Do") }
             
             describe "root url should not contain static page" do
                 it { should_not have_selector('h1', text: "Woo Do | Save Tasks") }

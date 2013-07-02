@@ -14,7 +14,7 @@
 require 'spec_helper'
 
 describe User do
-    before { @user = User.new(name: "Yuvaraja", email: "yuv.slm@gmail.com", password: "yuvislm", password_confirmation: "yuvislm") }
+    before { @user = User.new(name: "Yuvaraja", email: "yuv.slm@sample10.com", password: "yuvislm", password_confirmation: "yuvislm") }
     subject { @user }
 
     it { should respond_to(:name) }
@@ -124,11 +124,12 @@ describe User do
     end
 
     describe "possessing" do
-        let(:other_user) { FactoryGirl.create(:user, email: "yuv.slm@hotmail.com") }
+        let(:other_user) { FactoryGirl.create(:user) }
         let(:list) { FactoryGirl.create(:list) }
 
         before do
            @user.save
+           puts @user.valid?
            @user.posses!(list)
         end
 

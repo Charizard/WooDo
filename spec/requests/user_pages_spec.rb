@@ -6,9 +6,7 @@ describe "User Pages" do
     describe "Sign up Page" do
         before { visit signup_path }
 
-        it "Sign up path", :js => true do
-            should have_selector('title', text: "Sign up")
-        end
+        it { should have_title("Sign up") }
         it { should have_selector('h1', text: "Sign up") }
 
         describe "fill in form with valid information" do
@@ -42,7 +40,7 @@ describe "User Pages" do
                 fill_in "Confirmation",             with: "foobar"
             end
 
-            it { should have_selector('title', text: "Sign up") }
+            it { should have_title("Sign up") }
             it { should have_selector('h1', text: "Sign up") }
         end
     end
@@ -52,7 +50,7 @@ describe "User Pages" do
         let(:user) { FactoryGirl.create(:user) }
         before { visit user_path(user) }
 
-        it { should have_selector('title', text: user.name) }
+        it { should have_title(user.name) }
         it { should have_selector('h1', text: user.name) }
     end
 end

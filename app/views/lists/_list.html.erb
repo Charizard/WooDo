@@ -16,7 +16,7 @@
 </span>
 <% end %>
 <span>
-    <%= link_to list, method: :delete, data: { confirm: "Are you sure?" }, remote: true, id: "delete" do  %>
+    <%= link_to list, method: :delete, data: { confirm: "Are you sure?" }, remote: true, id: "list-delete" do  %>
         <i class="icon-trash icon-white"></i>
     <% end %>
 </span>
@@ -28,7 +28,7 @@
             <li id="<%= "#{task.order_number}" %>" class="draggable">
                 <%= task.content %> <div id="task_order_number" style="visibility: hidden"><%= task.order_number %></div> <div id="list_id" style="visibility: hidden"><%= list.id %></div>
                 <span>
-                    <%= link_to edit_task_url(task.id), remote: true do %>
+                    <%= link_to edit_task_url(task.id), remote: true, id: "task-edit" do %>
                         <i class="icon-thumbs-up"></i>
                     <% end %>
                 </span>
@@ -43,9 +43,9 @@
         <% list.tasks.completed.each do |task| %>
         <ul class="completed">
             <li id="task">
-                <%= task.content %><%= task.order_number %>
+                <%= task.content %>
                 <span>
-                    <%= link_to edit_task_url(task.id), remote: true do %>
+                    <%= link_to edit_task_url(task.id), remote: true, id: "task-edit" do %>
                         <i class="icon-thumbs-down"></i>
                     <% end %>
                 </span>
