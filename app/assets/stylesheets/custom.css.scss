@@ -53,12 +53,12 @@ h1{
 #lists{
     margin: 10px 0; 
     list-style-type: none;
-    position: relative;
     .list-container{
         width: 30%;
         height: 300px;
         border-radius: 7px;
-        box-shadow:inset 0px 0px 5px 5px #ccc;
+        border: 1px solid rgba(0, 0, 0, 0.15);
+        background-color: #f5f5f5;
         margin: 40px 10px;
         position: relative;
         .list-title{
@@ -67,11 +67,16 @@ h1{
             color: #fff;
             border-top-right-radius: 7px;
             border-top-left-radius: 7px;
-            background-color: #000;
-            span{
-                float: right;
-                font-size: 16px;
-                margin: 0 5px;
+            .toogle{
+                position: absolute;
+                top: 20px;
+                left: 20px;
+            }
+            #list-delete{
+                position: absolute;
+                margin: 4px 0px;
+                top: 20px;
+                right: 20px;
             }
         }
         .list-body{
