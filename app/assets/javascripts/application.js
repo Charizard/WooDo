@@ -10,25 +10,15 @@
 // WARNING: THE FIRST BLANK LINE MARKS THE END OF WHAT'S TO BE PROCESSED, ANY BLANK LINE SHOULD
 // GO AFTER THE REQUIRES BELOW.
 //
-//= require jquery
-//= require jquery_ujs
-//= require jquery.ui.all
 //= require bootstrap
+//= require jquery
+//= require jquery.ui.all
+//= require underscore
+//= require backbone
+//= require woo_do
+//= require_tree ../templates
+//= require_tree ./models
+//= require_tree ./collections
+//= require_tree ./views
+//= require_tree ./routers
 //= require_tree .
-
-$(function(){
-	$("#task-sortable").sortable({
-			update: function() {
-				after = $("#task-sortable").sortable("toArray");
-				list_id = $(this).parent().prev().find('#list-id').text();
-				$.ajaxSetup({
-    				'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript") }
-    		});
-				$.ajax({
-						url: '/lists/'+ list_id +'/reorder/',
-    				type: "POST",
-    		    data: { reorder: after }
-    		  });
-			}
-	});
-});

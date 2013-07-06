@@ -32,10 +32,7 @@ class ListsController < ApplicationController
 
     def destroy
         List.find(params[:id]).destroy
-        @lists = current_user.lists
-        respond_to do |format|
-            format.js
-        end
+        render :json => {}.to_json;
     end
 
     def share

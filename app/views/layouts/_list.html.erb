@@ -1,3 +1,71 @@
+<%= javascript_include_tag "custom" %>
+<script type="text/javascript">
+$(document).ready(function(){
+	window.Task = Backbone.Model.extend({});
+
+	window.Tasks = Backbone.Collection.extend({model: Task});
+
+	window.List = Backbone.Model.extend({
+		initialize: function(){
+			this.tasks = new Tasks(this.get('tasks'));
+		}
+	});
+
+	window.Lists = Backbone.Collection.extend({
+		model: List,
+		url: '/lists'
+	});
+
+	window.lists_collection = new Lists();
+	lists_collection.reset(<%= @lists.to_json(:include => :tasks ).html_safe %>);
+
+	window.ListView = Backbone.View.extend({
+		template: _.template($('#list-template').html()),
+		initialize: function(){
+			this.model.on('change',this.render,this);
+		},
+		events: {
+			'click #list-delete': 'deleteList'
+		},
+		deleteList: function(){
+			this.model.destroy();
+		},
+		render: function(){
+			this.$el.html(this.template(this.model.toJSON()));
+			return this;
+		}
+	});
+
+	window.ListsView = Backbone.View.extend({
+		tagName: 'li',
+		el: $('#lists'),
+		class: 'span4 list-container',
+		collection: lists_collection,
+		initialize: function(){
+			this.collection.on('add',this.addOne,this);
+			this.collection.on('reset',this.addAll,this);
+			this.collection.on('destroy',this.render,this);
+		},
+		render: function(){
+			this.$el.html("");
+			this.addAll();
+		},
+		addAll: function(){
+			this.collection.forEach(this.addOne,this);
+		},
+		addOne: function(list){
+			var list_view = new ListView({model: list});
+			this.$el.append(list_view.render().el);
+		}
+	});
+
+	window.lists_view = new ListsView();
+	lists_view.render();
+	console.log(lists_view.el);
+	//$('#lists').html(lists_view.el);
+
+});
+</script>
 <ol class="row" id="lists">
     <% if @user.lists.any? %>
         <%= render @lists %>

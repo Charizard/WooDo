@@ -5,6 +5,7 @@ gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
 gem 'jquery-ui-rails'
 gem 'selenium-webdriver'
+gem 'backbone-on-rails'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
