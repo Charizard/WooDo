@@ -21,31 +21,14 @@ class TasksController < ApplicationController
     end
 
     def destroy
-        @lists = current_user.lists
-        begin
-            if signed_in?
-                task = Task.find(params[:id])
-                move_after_destroy(List.find(task.list_id),task)
-                flash.now[:success] = "Successfully deleted."
-            end
-            respond_to do |format|
-                format.js
-            end
-        rescue Exception => e
-            respond_to do |format|
-                flash.now[:error] = e
-                format.js
-            end
-        end
+        task = Task.find(params[:id])
+        move_after_destroy(List.find(task.list_id),task)
+        render :json => {}.to_json
     end
 
-    def edit
-        task = Task.find(params[:id])
-        task.completed = !task.completed
-        task.save
-        @lists = current_user.lists
-        respond_to do |format|
-            format.js
-        end
+    def update
+        @task = Task.find(params[:id])
+        @task.update_attributes!(params[:task])
+        render :json => @task.to_json
     end
 end

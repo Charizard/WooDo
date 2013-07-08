@@ -65,9 +65,10 @@ h1{
             padding: 20px 0;
             font-size: 30px;
             color: #fff;
+            background-color: #454545;
             border-top-right-radius: 7px;
             border-top-left-radius: 7px;
-            .toogle{
+            #list-toogle{
                 position: absolute;
                 top: 20px;
                 left: 20px;
@@ -83,30 +84,41 @@ h1{
             ul{
                 list-style-type: none;
                 margin: 0px;
+                .incomplete{
+                    #task-content{
+                        color: #000;
+                        text-decoration: none;
+                    }
+                }
+                .complete{
+                    #task-content{
+                        color: #999;
+                        text-decoration: line-through;
+                    }
+                }
                 li{
                     margin: 3px 20px;
                     text-align: left;
                     border-bottom: 1px solid #111;
+                    #task-toogle{
+                        margin-bottom: 5px;
+                    }
+                    #task-content{
+                        display: inline;
+                        margin: 5px 0px;
+                        width: 80%;
+                    }
                     span{
                         float: right;
                         margin: 0 5px;
                     }
                 }
             }
-            .completed{
-                bottom: 0px;
-                color: green;
-                text-decoration: cross;
-                font-weight: bold
-            }
         }
-        .list-footer-container{
+        .list-footer{
             position: absolute;
             bottom: 0px;
             width:100%;
-            .list-footer{
-                width: 100%;
-            }
         }
     }
     #list_id{

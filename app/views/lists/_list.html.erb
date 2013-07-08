@@ -1,16 +1,31 @@
 <script type="text/javascript" id="list-template">
   <div class="span4 list-container">
     <div class="list-title">
-      <input class='toogle' type="checkbox" <%%= completed? 'checked="checked"':'' %>/>
+      <input id='list-toogle' type="checkbox" <%%= completed? 'checked="checked"':'' %>/>
       <%%= title %>
       <span id='list-delete'><i class='icon-trash icon-white'></i></span>
     </div>
     <div class="list-body">
-      <ul class="tasks">
-      <%% _.each(tasks, function(task){ %>
-          <li><%%= task.content %></li>
-      <%% }); %>
+      <ul id="tasks">
       </ul>
     </div>
+    <div class="list-footer">
+      <div id="share">
+        <%= form_for list, url: '/lists/'+list.id.to_s+'/share' , :method => :post , :html => { :class => "form-inline" } do |f|%>
+          <%= render 'shared/error_messages', object: f.object %>
+          <%= f.fields_for :user do |user| %>
+            <div class="input-append">
+              <%= user.text_field :email, class: "input-medium"  %>
+              <%= user.submit "Share", class: "btn"  %>
+            </div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
   </div>
+</script>
+<script type="text/javascript" id="task-template">
+    <input id='task-toogle' type="checkbox" <%%= completed? 'checked="checked"':'' %>/>
+    <div id='task-content'><%%= content %></div>
+    <span id='task-delete'><i class='icon-trash'></i></span>
 </script>

@@ -12,7 +12,7 @@
 #
 
 class Task < ActiveRecord::Base
-  attr_accessible :content, :order_number
+  attr_accessible :content, :order_number, :completed
   belongs_to :list  
 
   scope :completed, -> { where(completed: true).order('order_number ASC') }

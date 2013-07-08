@@ -11,7 +11,7 @@
 #
 
 class List < ActiveRecord::Base
-  attr_accessible :title
+  attr_accessible :title, :completed
   #before_filter :signed_in_user
 
   validates :title, presence: true, uniqueness: { case_sensitivity: false }, length: { maximum: 20 }

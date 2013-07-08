@@ -5,7 +5,7 @@ WooDo::Application.routes.draw do
     resources :tasks
     resources :relationships
 
-    resources :lists, only: [:create, :show, :destroy, :edit] do
+    resources :lists, only: [:create, :show, :destroy, :edit, :update] do
         post :share
         post :reorder
     end

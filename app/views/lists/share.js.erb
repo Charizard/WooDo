@@ -1,16 +1,5 @@
-$("#task-sortable").sortable({
-			update: function() {
-				after = $("#task-sortable").sortable("toArray");
-				list_id = $(this).parent().prev().find('#list-id').text();
-				$.ajaxSetup({
-    				'beforeSend': function(xhr) { xhr.setRequestHeader("Accept", "text/javascript") }
-    		});
-				$.ajax({
-						url: '/lists/'+ list_id +'/reorder/',
-    				type: "POST",
-    		    data: { reorder: after }
-    		  });
-			}
-	});
-$('#lists').html("<%= escape_javascript(render @lists) %>");
-$('#show-error').html(" <%= escape_javascript( render 'shared/flash_messages' ) %> ");
+<% if !flash.now[:error].nil? %>
+	$('#show-error').html(" <%= escape_javascript( render 'shared/flash_messages' ) %> ");
+<% end %>
+
+lists_collection.reset(<%= current_user.lists.to_json(:include => :tasks ).html_safe %>);

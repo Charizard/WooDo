@@ -53,6 +53,13 @@ class ListsController < ApplicationController
             end
         end
     end
+
+    def update
+        @list = List.find(params[:id])
+        @list.update_attributes!(completed: params[:completed])
+        render :json => {}.to_json
+    end
+
     def reorder
         @lists = current_user.lists
         begin
