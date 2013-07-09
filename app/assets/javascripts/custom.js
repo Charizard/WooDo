@@ -1,5 +1,11 @@
 $(function(){
-	$("#task-sortable").sortable({
+		$('#tasks').sortable({
+      update: function(event, ui) {
+      	console.log('trigger');
+        ui.item.trigger('drop', ui.item.index());
+      }
+    });
+	/*$("#task").sortable({
 			update: function() {
 				after = $("#task-sortable").sortable("toArray");
 				list_id = $(this).parent().prev().find('#list-id').text();
@@ -12,5 +18,5 @@ $(function(){
     		    data: { reorder: after }
     		  });
 			}
-	});
+	});*/
 });

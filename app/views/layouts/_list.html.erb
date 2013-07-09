@@ -1,11 +1,6 @@
 <%= javascript_include_tag "custom" %>
 <script type="text/javascript">
 $(document).ready(function(){
-		$('#tasks').sortable({
-        update: function(event, ui) {
-            ui.item.trigger('drop', ui.item.index());
-        }
-    });
 
 	window.Task = Backbone.Model.extend({
 		toggleTaskStatus: function(){
@@ -52,13 +47,8 @@ $(document).ready(function(){
 		template: _.template($('#task-template').html()),
 		events: {
 			'change input': 'toggleTaskStatus',
-			'click #task-delete': 'deleteTask',
-			'drop': 'drop'
+			'click #task-delete': 'deleteTask'
 		},
-		drop: function(event, index) {
-      console.log('Triggered');
-      this.$el.trigger('update-sort', [this.model, index]);
-    },
 		deleteTask: function(){
 			this.model.destroy();
 		},
@@ -81,6 +71,8 @@ $(document).ready(function(){
 	});
 
 	window.TasksView = Backbone.View.extend({
+		tagName: 'ul',
+		id: 'tasks',
 		initialize: function(){
 			this.collection.on('destroy',this.render,this);
 		},
@@ -116,7 +108,7 @@ $(document).ready(function(){
 		render: function(){
 			var tasks_view = new TasksView({collection: this.model.tasks});
 			this.$el.html(this.template(this.model.toJSON()));
-			this.$el.find('#tasks').html(tasks_view.render().el);
+			this.$el.find('.list-body').html(tasks_view.render().el);
 			return this;
 		}
 	});

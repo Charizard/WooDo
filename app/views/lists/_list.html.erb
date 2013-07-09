@@ -6,12 +6,10 @@
       <span id='list-delete'><i class='icon-trash icon-white'></i></span>
     </div>
     <div class="list-body">
-      <ul id="tasks">
-      </ul>
     </div>
     <div class="list-footer">
       <div id="share">
-        <%= form_for list, url: '/lists/'+list.id.to_s+'/share' , :method => :post , :html => { :class => "form-inline" } do |f|%>
+        <%= form_for list, url: '/lists/'+list.id.to_s+'/share' , :method => :post, :remote => true , :html => { :class => "form-inline" } do |f|%>
           <%= render 'shared/error_messages', object: f.object %>
           <%= f.fields_for :user do |user| %>
             <div class="input-append">

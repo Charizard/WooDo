@@ -46,8 +46,8 @@ class ListsController < ApplicationController
             respond_to do |format|
                 format.js
             end
-        rescue
-            flash.now[:error] = "Cannot share."
+        rescue Exception => e
+            flash.now[:error] = e
             respond_to do |format|
                format.js
             end

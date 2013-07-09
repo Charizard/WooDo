@@ -3,5 +3,4 @@ $('.task-creator')[0].reset();
 <% if !flash.now[:error].nil? %>
 	$('#show-error').html(" <%= escape_javascript( render 'shared/flash_messages' ) %> ");
 <% end %>
-
 lists_collection.reset(<%= current_user.lists.to_json(:include => :tasks ).html_safe %>);
