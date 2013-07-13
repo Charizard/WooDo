@@ -27,15 +27,6 @@ class List < ActiveRecord::Base
     end
   end
 
-  def self.change_order reorder, list_id 
-    list = List.find(list_id)
-    reorder.each_with_index do |old_order, new_order|
-      task = list.tasks.find_by_order_number(old_order.to_i)
-      task.order_number = new_order+1
-      task.save
-    end
-  end
-
   private 
     def signed_in_user
       redirect_to root_url unless signed_in?

@@ -2,6 +2,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
+
 	window.Task = Backbone.Model.extend({
 		toggleTaskStatus: function(){
 			this.set({completed : !this.get('completed')});
@@ -11,7 +12,10 @@ $(document).ready(function(){
 
 	window.Tasks = Backbone.Collection.extend({
 		model: Task,
-		url: '/tasks'
+		url: '/tasks',
+		comparator: function(model) {
+        return model.get('ordinal');
+    }
 	});
 
 	window.List = Backbone.Model.extend({
@@ -47,8 +51,12 @@ $(document).ready(function(){
 		template: _.template($('#task-template').html()),
 		events: {
 			'change input': 'toggleTaskStatus',
-			'click #task-delete': 'deleteTask'
+			'click #task-delete': 'deleteTask',
+			'drop' : 'drop'
 		},
+		drop: function(event, index) {
+      this.$el.trigger('update-sort', [this.model, index]);
+    },
 		deleteTask: function(){
 			this.model.destroy();
 		},
@@ -73,6 +81,34 @@ $(document).ready(function(){
 	window.TasksView = Backbone.View.extend({
 		tagName: 'ul',
 		id: 'tasks',
+		events: {
+			'update-sort': 'updateSort'
+		},
+		updateSort: function(event, model, position) {            
+        this.collection.remove(model);
+
+        this.collection.each(function (model, index) {
+            var ordinal = index;
+            if (index >= position)
+                ordinal += 1;
+            model.set('ordinal', ordinal);
+        });            
+
+        model.set('ordinal', position);
+        this.collection.add(model, {at: position});
+
+        // to update ordinals on server:
+        var ids = this.collection.pluck('id');
+        console.log(ids);
+        $.ajax({
+        	url: "/tasks/reorder",
+        	method: "POST",
+        	data: {ids: ids}
+        })
+        //$('#post-data').html('post ids to server: ' + ids.join(', '));
+
+        this.render();
+    },
 		initialize: function(){
 			this.collection.on('destroy',this.render,this);
 		},
@@ -136,13 +172,16 @@ $(document).ready(function(){
 		}
 	});
 
-	window.CreateForm = Backbone.View.extend({
-		
-	});
-
 	window.lists_view = new ListsView();
 	lists_view.render();
 	//console.log(lists_view.el);
+
+	$('.list-body #tasks').sortable({
+		stop: function(event, ui) {
+      ui.item.trigger('drop', ui.item.index());
+    }
+	});
+	$('.list-body #tasks').disableSelection();
 
 });
 </script>

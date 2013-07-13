@@ -31,4 +31,20 @@ class TasksController < ApplicationController
         @task.update_attributes!(params[:task])
         render :json => @task.to_json
     end
+
+    def reorder
+      #raise 'error'
+      begin
+        Task.change_order params[:ids]
+        flash.now[:success] = "Successfully reordered."
+        respond_to do |format|
+          format.js 
+        end
+      rescue Exception => e
+        flash.now[:error] = "Cannot create" 
+        respond_to do |format|
+          format.js
+        end
+      end
+    end
 end

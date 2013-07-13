@@ -1,5 +1,4 @@
 $('#show-error').html("");
-$('.task-creator')[0].reset();
 <% if !flash.now[:error].nil? %>
 	$('#show-error').html(" <%= escape_javascript( render 'shared/flash_messages' ) %> ");
 <% end %>

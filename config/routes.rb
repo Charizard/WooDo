@@ -2,12 +2,13 @@ WooDo::Application.routes.draw do
 
     resources :users, only: [:new, :create, :edit, :update, :show, :update]
     resources :sessions, only: [:new, :create, :destroy]
-    resources :tasks
+    resources :tasks do
+      post :reorder, :on => :collection
+    end
     resources :relationships
 
     resources :lists, only: [:create, :show, :destroy, :edit, :update] do
-        post :share
-        post :reorder
+      post :share
     end
 
     get "static_pages/home"

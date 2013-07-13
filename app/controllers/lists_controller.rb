@@ -59,20 +59,4 @@ class ListsController < ApplicationController
         @list.update_attributes!(completed: params[:completed])
         render :json => {}.to_json
     end
-
-    def reorder
-        @lists = current_user.lists
-        begin
-            List.change_order params[:reorder],params[:list_id]
-            flash.now[:success] = "Successfully reordered."
-            respond_to do |format|
-                format.js
-            end
-        rescue Exception => e
-            flash.now[:error] = "Cannot create" 
-            respond_to do |format|
-                format.js
-            end
-        end
-    end
 end

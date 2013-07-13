@@ -15,6 +15,7 @@ class Task < ActiveRecord::Base
   attr_accessible :content, :order_number, :completed
   belongs_to :list  
 
+  default_scope { order('order_number ASC') } 
   scope :completed, -> { where(completed: true).order('order_number ASC') }
   scope :pending, -> { where(completed: false).order('order_number ASC') }
 
@@ -24,5 +25,13 @@ class Task < ActiveRecord::Base
   def complete
     self.complete = true
     self.save!
+  end
+
+  def self.change_order reorder
+    reorder.each_with_index do |id, order|
+      task = Task.find(id.to_i)
+      task.order_number = order+1
+      task.save
+    end
   end
 end
